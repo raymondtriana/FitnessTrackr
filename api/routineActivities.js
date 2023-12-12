@@ -13,8 +13,20 @@ const { requireUser, requiredNotSent } = require("./utils");
 // GET /api/routine_activities
 router.get("/", async (req, res, next) => {
   try {
-    const activities = await getAllRoutineActivities()
+    const activities = await getAllRoutineActivities();
     res.send(activities);
+  } catch (error) {
+    console.log(error);
+    res.send(error);
+  }
+});
+
+// GET /api/routine_activities/:routineActivityId
+router.get("/:routineActivityId", async (req, res, next) => {
+  try {
+    const id = req.params.routineActivityId;
+    const activity = await getRoutineActivityById(id);
+    res.send(activity);
   } catch (error) {
     console.log(error);
     res.send(error);
