@@ -34,6 +34,18 @@ router.post('/', requireUser, requiredNotSent({requiredParams: ['name', 'goal']}
   }
 });
 
+// GET /api/routines/:routineId
+router.get('/:routineId', async(req,res,next)=>{
+  try {
+    const id = req.params.routineId;
+    const routine = await getRoutineById(id);
+    res.send(routine);
+  } catch (error) {
+    console.log(error);
+    res.send("ERROR");
+  }
+})
+
 // PATCH /api/routines/:routineId
 router.patch('/:routineId', requireUser, requiredNotSent({requiredParams: ['name', 'goal', 'isPublic'], atLeastOne: true}), async (req, res, next) => {
   try {
